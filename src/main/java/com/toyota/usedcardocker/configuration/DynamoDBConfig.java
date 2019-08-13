@@ -16,9 +16,9 @@ import org.springframework.context.annotation.Configuration;
 @EnableDynamoDBRepositories(basePackages = "com.toyota.usedcardocker.repositories")
 public class DynamoDBConfig {
 
-    @Value("${awsAccessKey}")
+    @Value("${awsAccessKey:}")
     private String amazonDynamoDBAccessKey;
-    @Value("${awsSecretKey}")
+    @Value("${awsSecretKey:}")
     private String amazonDynamoDBSecretKey;
 
     @Bean
