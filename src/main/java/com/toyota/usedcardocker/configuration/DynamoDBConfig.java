@@ -10,6 +10,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -18,12 +19,14 @@ import org.springframework.context.annotation.Primary;
 @EnableDynamoDBRepositories(basePackages = "com.toyota.usedcardocker.repositories")
 public class DynamoDBConfig {
 
-    private static final String AMAZON_DYNAMO_DB_ACCESS_KEY = "AKIAJKXQAQJWIADNZ7UA";
-    private static final String AMAZON_DYNAMO_DB_SECRET_KEY = "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";
+    @Value("#{awsAccessKey}")
+    private String amazonDynamoDBAccessKey;
+    @Value("#{awsSecretKey}")
+    private String amazonDynamoDBSecretKey;
 
     @Bean
     public AWSCredentials awsCredentials(){
-        return new BasicAWSCredentials(AMAZON_DYNAMO_DB_ACCESS_KEY, AMAZON_DYNAMO_DB_SECRET_KEY);
+        return new BasicAWSCredentials(amazonDynamoDBAccessKey,amazonDynamoDBSecretKey);
     }
 
     @Bean
